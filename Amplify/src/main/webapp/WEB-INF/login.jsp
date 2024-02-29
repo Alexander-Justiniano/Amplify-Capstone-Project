@@ -45,7 +45,7 @@ c:out ; c:forEach etc. -->
                 </div>
                 <div id="third-party-login">
                     <!-- *******************CLICKING ON THE IMAGE NEEDS TO MAKE AN API CALL TO THE GOOGLE AUTHENTICATION SERVICE******************* -->
-                    <a href="#">
+                    <a href="#" id="googleSignIn">
                         <img src="Google Logo.png" alt="Google Sign in">
                     </a>
                 </div>
@@ -59,5 +59,18 @@ c:out ; c:forEach etc. -->
                 </div>
             </div>
     </div>
+    
+    <script>
+        // Function to handle the click event on the Google logo
+        function handleGoogleSignIn() {
+            // Make an API call to the Google Authentication service
+            // Replace the following with actual API call logic
+
+            console.log("Making API call to Google Authentication service...");
+        }
+
+        // Add a click event listener to the Google logo
+        document.getElementById('googleSignIn').addEventListener('click', handleGoogleSignIn);
+    </script>
 </body>
 </html>
