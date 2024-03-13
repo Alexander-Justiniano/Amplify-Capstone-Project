@@ -1,24 +1,24 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-c:out ; c:forEach etc. --> 
-<!-- <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- c:out ; c:forEach etc. --> 
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!-- Formatting (dates) --> 
-<!-- <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"  %> -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"  %>
 <!-- form:form -->
-<!-- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> -->
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- for rendering errors on PUT routes -->
-<!-- <%@ page isErrorPage="true" %> -->
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Amplify Sign In</title>
-    <link rel="stylesheet" href="/login.css"> <!-- change to match your file/naming structure -->
+    <link rel="stylesheet" href="/CSS/login.css"> 
 </head>
 <body>
     <div class="container">
             <div class="col-1">
                 <div id="login-logo">
-                    <img src="logo_with_name.png" alt="login-logo">
+                    <img src="/imgs/logo_with_name.png" alt="login-logo">
                 </div>
                 <div id="slogan">
                     <p>Amplify Your Listening Experience, Anytime, Anywhere.</p>
@@ -46,7 +46,7 @@ c:out ; c:forEach etc. -->
                 <div id="third-party-login">
                     <!-- *******************CLICKING ON THE IMAGE NEEDS TO MAKE AN API CALL TO THE GOOGLE AUTHENTICATION SERVICE******************* -->
                     <a href="#">
-                        <img src="Google Logo.png" alt="Google Sign in">
+                        <img src="/imgs/google_logo.png" alt="Google Sign in">
                     </a>
                 </div>
                 <div id="form-extras">
