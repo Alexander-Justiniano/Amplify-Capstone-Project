@@ -1,5 +1,6 @@
 package edu.mdc.capstone.amplify.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.mdc.capstone.amplify.models.LoginUser;
 import edu.mdc.capstone.amplify.models.User;
+import edu.mdc.capstone.amplify.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -17,6 +19,8 @@ import jakarta.validation.Valid;
 @RequestMapping("/")
 public class AmplifyController {
 	
+	@Autowired
+	private UserService userServ;
 	
 //	*************************************************************** GET Requests ***************************************************************
 
@@ -51,8 +55,8 @@ public class AmplifyController {
 	            BindingResult result, Model model, HttpSession session) {
 
 //			Make call to the user service to register the new user
-//	    	Example:
-//			userServ.register(newUser, result);
+
+			userServ.register(newUser, result);
 	        
 	        if(result.hasErrors()) {
 	        	model.addAttribute("newLogin", new LoginUser());
@@ -71,8 +75,8 @@ public class AmplifyController {
 		            BindingResult result, Model model, HttpSession session) {
 		    	
 //				Make call to the user service to sign in the new user
-//		    	Example:
-//		    	User loggedIn = userServ.login(newLogin, result);		
+
+		    	User loggedIn = userServ.login(newLogin, result);		
 		    
 		        if(result.hasErrors()) {
 		            model.addAttribute("newUser", new User());
@@ -80,8 +84,8 @@ public class AmplifyController {
 		        }
 		    
 //		        Add the ID and the Username of the logged in user to session for later use
-//		        session.setAttribute("user_id", loggedIn.getId());
-//		        session.setAttribute("userName", loggedIn.getUserName());
+		        session.setAttribute("user_id", loggedIn.getId());
+		        session.setAttribute("userName", loggedIn.getUserName());
 		    
 		        return "redirect:/dashboard";
 		    }
