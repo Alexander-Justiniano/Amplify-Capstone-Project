@@ -1,13 +1,18 @@
 package edu.mdc.capstone.amplify.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -35,11 +40,25 @@ public class Tracks {
     @JoinColumn(name = "album_id")
     private Albums album;
     
+    @ManyToMany(mappedBy = "tracks")
+    private Set<Playlists> playlist = new HashSet<>();
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
     private Artists artist; 
+    
+    @Lob
+    private byte[] audioData;
 
-    public Tracks() {}
+    public byte[] getAudioData() {
+		return audioData;
+	}
+
+	public void setAudioData(byte[] audioData) {
+		this.audioData = audioData;
+	}
+
+	public Tracks() {}
 
 	public Long getId() {
 		return id;
@@ -71,6 +90,14 @@ public class Tracks {
 
 	public void setAlbum(Albums album) {
 		this.album = album;
+	}
+
+	public Set<Playlists> getPlaylist() {
+		return playlist;
+	}
+
+	public void setPlaylist(Set<Playlists> playlist) {
+		this.playlist = playlist;
 	}
 
 	public Artists getArtist() {

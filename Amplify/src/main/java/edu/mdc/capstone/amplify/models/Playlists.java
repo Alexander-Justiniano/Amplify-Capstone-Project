@@ -39,12 +39,17 @@ public class Playlists {
 	@ManyToMany
 	@JoinTable(
 	name = "playlist_contributors",
-	joinColumns = @JoinColumn(name = "playlist_id"),
+	joinColumns = @JoinColumn(name = "playlist"),
 	inverseJoinColumns = @JoinColumn(name = "user_id")
 	    )
 	private Set<User> contributors = new HashSet<>();
 
-	@ManyToMany(mappedBy = "playlists")
+	@ManyToMany
+	@JoinTable(
+	name = "playlist_tracks",
+	joinColumns = @JoinColumn(name = "playlist"),
+	inverseJoinColumns = @JoinColumn(name = "track_id")
+			)
 	private Set<Tracks> tracks = new HashSet<>();
 
 	@CreationTimestamp
