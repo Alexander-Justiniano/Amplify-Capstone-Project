@@ -5,14 +5,17 @@ import edu.mdc.capstone.amplify.repositories.AlbumsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
-
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
 public class AlbumService {
 
-    @Autowired
+	@Autowired
     private AlbumsRepository albumsRepo;
+
+    private static final DateTimeFormatter UPLOAD_DATE_FORMATTER = DateTimeFormatter.ofPattern("MM/yyyy");
 
     // Create new album
     public Albums createAlbum(Albums newAlbum, BindingResult result) {
@@ -32,8 +35,9 @@ public class AlbumService {
             return null;
         }
 
-        // Set the upload date to the current year and month
-        newAlbum.setUploadDate();
+        // Set the upload date to current month year
+        String currentUploadDate = LocalDate.now().format(UPLOAD_DATE_FORMATTER);
+        newAlbum.setUploadDate(currentUploadDate);
 
         // Save new album
         return albumsRepo.save(newAlbum);
@@ -52,9 +56,6 @@ public class AlbumService {
         if (result.hasErrors()) {
             return null;
         }
-        
-        // Set the upload date to the current year and month
-        updatedAlbum.setUploadDate();
 
         // Save the updated album to the database
         updatedAlbum.setId(id);
