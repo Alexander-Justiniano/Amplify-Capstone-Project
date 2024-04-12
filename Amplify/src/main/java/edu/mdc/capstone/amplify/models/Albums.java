@@ -15,10 +15,9 @@ import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.PastOrPresent;
-import org.hibernate.annotations.CreationTimestamp;
-import java.time.LocalDate;
+import java.time.Year;
 import java.util.Set;
+
 
 @Entity
 @Table(name="albums")
@@ -35,12 +34,11 @@ public class Albums {
 	@Size(max = 1000, message = "Description must be less than 1000 characters")
 	private String description;
 	 
-	@NotNull(message = "Release date is required")
-	@PastOrPresent(message = "The release date cannot be in the future")
-	private LocalDate releaseDate;
+	@NotNull(message = "Release year is required")
+	private Year releaseYear; 
 	 
-	@CreationTimestamp
-	private LocalDate uploadDate;
+	@NotBlank(message = "Upload date is required")
+	private String uploadDate; 
 	 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "artist_id", nullable = false)
@@ -80,19 +78,19 @@ public class Albums {
 		this.description = description;
 	}
 
-	public LocalDate getReleaseDate() {
-		return releaseDate;
+	public Year getReleaseYear() {
+		return releaseYear;
 	}
 
-	public void setReleaseDate(LocalDate releaseDate) {
-		this.releaseDate = releaseDate;
+	public void setReleaseYear(Year releaseYear) {
+		this.releaseYear = releaseYear;
 	}
 
-	public LocalDate getUploadDate() {
+	public String getUploadDate() {
 		return uploadDate;
 	}
 
-	public void setUploadedDate(LocalDate uploadDate) {
+	public void setUploadDate(String uploadDate) {
 		this.uploadDate = uploadDate;
 	}
 

@@ -1,5 +1,8 @@
 package edu.mdc.capstone.amplify.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,7 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -19,6 +25,10 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "tracks")
 public class Tracks {
     
+	public enum Genre {
+		Electronic, Classical, Country, Rap, Rock
+    }
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +48,15 @@ public class Tracks {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
     private Artists artist; 
+    
+    
+    @NotNull(message = "Genre is required")
+    @Enumerated(EnumType.STRING) // Stores enum as string
+    private Genre genre;
 
+    @ManyToMany(mappedBy = "tracks")
+	private Set<Playlists> playlists = new HashSet<>();
+    
     public Tracks() {}
 
 	public Long getId() {
@@ -79,6 +97,22 @@ public class Tracks {
 
 	public void setArtist(Artists artist) {
 		this.artist = artist;
+	}
+
+	public Genre getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Genre genre) {
+		this.genre = genre;
+	}
+
+	public Set<Playlists> getPlaylists() {
+		return playlists;
+	}
+
+	public void setPlaylists(Set<Playlists> playlists) {
+		this.playlists = playlists;
 	}
     
 }

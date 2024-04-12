@@ -6,13 +6,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "artists")
 public class Artists {
-
+	
+	public enum Genre {
+		Electronic, Classical, Country, Rap, Rock
+    }
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,12 +26,12 @@ public class Artists {
     @NotBlank(message = "Artist name required")
     @Size(min = 2, max = 80, message = "Artist name must be between 2 and 80 characters")
     private String name;
-
+    
+    @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    private String genre;
+    private Genre genre; 
 
-    public Artists() {
-    }
+    public Artists() {}
 
 	public Long getId() {
 		return id;
@@ -43,13 +49,12 @@ public class Artists {
 		this.name = name;
 	}
 
-	public String getGenre() {
+	public Genre getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
+	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
-
    
 }

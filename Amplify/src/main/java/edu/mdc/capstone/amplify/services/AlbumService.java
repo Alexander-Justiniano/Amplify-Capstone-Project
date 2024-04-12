@@ -32,6 +32,9 @@ public class AlbumService {
             return null;
         }
 
+        // Set the upload date to the current year and month
+        newAlbum.setUploadDate();
+
         // Save new album
         return albumsRepo.save(newAlbum);
     }
@@ -50,6 +53,9 @@ public class AlbumService {
             return null;
         }
         
+        // Set the upload date to the current year and month
+        updatedAlbum.setUploadDate();
+
         // Save the updated album to the database
         updatedAlbum.setId(id);
         return albumsRepo.save(updatedAlbum);

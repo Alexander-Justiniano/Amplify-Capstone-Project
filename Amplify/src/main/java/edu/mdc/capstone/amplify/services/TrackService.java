@@ -1,7 +1,10 @@
 package edu.mdc.capstone.amplify.services;
 
 import edu.mdc.capstone.amplify.models.Tracks;
+import edu.mdc.capstone.amplify.models.Tracks.Genre;
 import edu.mdc.capstone.amplify.repositories.TracksRepository;
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -44,4 +47,17 @@ public class TrackService {
     public void deleteTrack(Long trackId) {
         trackRepo.deleteById(trackId);
     }
+    
+    // Update track genre
+    public Tracks updateTrackGenre(Long trackId, Genre genre) {
+        Optional<Tracks> trackOpt = trackRepo.findById(trackId);
+        if (trackOpt.isPresent()) {
+            Tracks track = trackOpt.get();
+            track.setGenre(genre);
+            return trackRepo.save(track);
+        } else {
+            throw new EntityNotFoundException("Track with id " + trackId + " not found.");
+        }
+    }
+    
 }
