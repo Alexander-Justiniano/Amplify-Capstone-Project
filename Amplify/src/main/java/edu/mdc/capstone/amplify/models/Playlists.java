@@ -38,18 +38,19 @@ public class Playlists {
 
 	@ManyToMany
 	@JoinTable(
-		name = "playlist_contributors",
-		joinColumns = @JoinColumn(name = "playlist_id"),
-		inverseJoinColumns = @JoinColumn(name = "user_id")
+	name = "playlist_contributors",
+	joinColumns = @JoinColumn(name = "playlist"),
+	inverseJoinColumns = @JoinColumn(name = "user_id")
 	)
+
 	private Set<User> contributors = new HashSet<>();
 
 	@ManyToMany
 	@JoinTable(
-		name = "playlist_tracks",
-		joinColumns = @JoinColumn(name = "playlist_id"), 
-		inverseJoinColumns = @JoinColumn(name = "track_id") 
-	)
+	name = "playlist_tracks",
+	joinColumns = @JoinColumn(name = "playlist"),
+	inverseJoinColumns = @JoinColumn(name = "track_id")
+			)
 	private Set<Tracks> tracks = new HashSet<>();
 
 	@CreationTimestamp

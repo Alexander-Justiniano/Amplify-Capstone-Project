@@ -4,14 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import jakarta.validation.constraints.Max;
@@ -19,16 +20,14 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-
-
 @Entity
 @Table(name = "tracks")
 public class Tracks {
     
-	public enum Genre {
-		Electronic, Classical, Country, Rap, Rock
+    public enum Genre {
+        Electronic, Classical, Country, Rap, Rock
     }
-	
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,8 +37,8 @@ public class Tracks {
     
     @NotNull(message = "Track length is required")
     @Min(value = 30, message = "Track must be longer than 30 seconds")
-	@Max(value = 900, message = "Track must be shorter than 15 minutes")
-	private Integer durationInSeconds;
+    @Max(value = 900, message = "Track must be shorter than 15 minutes")
+    private Integer durationInSeconds;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "album_id")
@@ -47,18 +46,28 @@ public class Tracks {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
-    private Artists artist; 
-    
+    private Artists artist;
     
     @NotNull(message = "Genre is required")
     @Enumerated(EnumType.STRING) // Stores enum as string
     private Genre genre;
-
-    @ManyToMany(mappedBy = "tracks")
-	private Set<Playlists> playlists = new HashSet<>();
+    
+    @Lob
+    private byte[] audioData;
+    
+    @ManyToMany(mappedBy = "playlist")
+    private Set<Playlists> playlist = new HashSet<>();
     
     public Tracks() {}
 
+    public byte[] getAudioData() {
+        return audioData;
+    }
+
+    public void setAudioData(byte[] audioData) {
+        this.audioData = audioData;
+    }
+    
 	public Long getId() {
 		return id;
 	}
@@ -89,6 +98,14 @@ public class Tracks {
 
 	public void setAlbum(Albums album) {
 		this.album = album;
+	}
+
+	public Set<Playlists> getPlaylist() {
+		return playlist;
+	}
+
+	public void setPlaylist(Set<Playlists> playlist) {
+		this.playlist = playlist;
 	}
 
 	public Artists getArtist() {
