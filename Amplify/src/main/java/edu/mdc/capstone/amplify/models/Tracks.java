@@ -125,11 +125,11 @@ public class Tracks {
 	}
 
 	public Set<Playlists> getPlaylists() {
-		return playlists;
+		return playlist;
 	}
 
 	public void setPlaylists(Set<Playlists> playlists) {
-		this.playlists = playlists;
+		this.playlist = playlists;
 	}
     
 }
