@@ -47,13 +47,21 @@ public class User {
 		this.id = id;
 	}
 
-	public String getuserName() {
+/*	public String getuserName() {
+		return userName;
+	}*/
+
+	/*public void setuserName(String userName) {
+		this.userName = userName;
+	}*/
+
+	public String getUserName() {
 		return userName;
 	}
-
-	public void setuserName(String userName) {
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 
 	public String getEmail() {
 		return email;

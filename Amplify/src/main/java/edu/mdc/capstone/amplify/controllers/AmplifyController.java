@@ -39,7 +39,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/")
+//@RequestMapping("/")
 public class AmplifyController {
 
 	@Autowired
@@ -47,24 +47,33 @@ public class AmplifyController {
 
 //	*************************************************************** GET Requests ***************************************************************
 
+		/*@GetMapping("/")
+		public String index(Model model) {		//Need to address naming conventions for readability
+			//Pass in the empty "User" and "LoginUser" objects to the model for later use
+			model.addAttribute("newUser", new User());
+			model.addAttribute("newLogin", new LoginUser());
+			return "login";
+		}*/
+
 		@GetMapping("/")
 		public String index(Model model) {		//Need to address naming conventions for readability
 			//Pass in the empty "User" and "LoginUser" objects to the model for later use
 			model.addAttribute("newUser", new User());
 			model.addAttribute("newLogin", new LoginUser());
-			return "login.jsp";
+			return "loginTwo";
 		}
 
 		@GetMapping("/register")
 		public String register(Model model) {
+			System.out.println("loading registration page.....");
 			model.addAttribute("newUser", new User());
 			model.addAttribute("newLogin", new LoginUser());
-			return "register.jsp";
+			return "register";
 		}
 
 		@GetMapping("/dashboard")
 		public String home() {
-			return "index.jsp"; //Need to address naming conventions for readability
+			return "index"; //Need to address naming conventions for readability
 		}
 
 
@@ -76,24 +85,31 @@ public class AmplifyController {
 		@PostMapping("/register")
 	    public String register(@Valid @ModelAttribute("newUser") User newUser,
 	            BindingResult result, Model model, HttpSession session) {
-
 //			Make call to the user service to register the new user
-
 			userServ.register(newUser, result);
 
 	        if(result.hasErrors()) {
 	        	model.addAttribute("newLogin", new LoginUser());
-	            return "register.jsp";
+	            //return "register.jsp";
+	            return "register";
 	        }
 
-	        session.setAttribute("user_id", newUser.getId());
-	        session.setAttribute("userName", newUser.getuserName());
+	        //session.setAttribute("user_id", newUser.getId());
+	        //session.setAttribute("userName", newUser.getuserName());
+	        //session.setAttribute("userName", newUser.getUserName());
 
-	        return "redirect:/dashboard";
+	        //return "redirect:/dashboard";
+			return "redirect:/"; //redirect to login page after registration
 	    }
 
+		@GetMapping("/logout")
+		public String logout(HttpSession httpSession) {
+			httpSession.invalidate();
+			return "redirect:/";
+		}
 
-		 @PostMapping("/login")
+
+		/* @PostMapping("/login")
 		    public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin,
 		            BindingResult result, Model model, HttpSession session) {
 
@@ -108,10 +124,36 @@ public class AmplifyController {
 
 //		        Add the ID and the userName of the logged in user to session for later use
 		        session.setAttribute("user_id", loggedIn.getId());
-		        session.setAttribute("userName", loggedIn.getuserName());
+		        //session.setAttribute("userName", loggedIn.getuserName());
+		        session.setAttribute("userName", loggedIn.getUserName());
 
 		        return "redirect:/dashboard";
-		    }
+		    }*/
+
+
+			@PostMapping("/login")
+			public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin,
+								BindingResult result, Model model, HttpSession session) {
+
+				// Make call to the user service to sign in the new user
+
+				User loggedIn = userServ.login(newLogin, result);
+
+				if(result.hasErrors()) {
+					model.addAttribute("newUser", new User());
+					return "loginTwo";
+				}
+
+				session.setAttribute("user", loggedIn);
+
+				//Add the ID and the userName of the logged in user to session for later use
+				//session.setAttribute("user_id", loggedIn.getId());
+				//session.setAttribute("userName", loggedIn.getuserName());
+				//session.setAttribute("userName", loggedIn.getUserName());
+
+				return "redirect:/dashboard";
+				//return "redirect:/audio";
+			}
 
 		 @Controller
 		 @RequestMapping("/audio")
@@ -123,7 +165,6 @@ public class AmplifyController {
 			 @Value("${app.url}")
 			 private String propertyValue;
 
-
 			 @Value("${upload.directory}")
 			 private String directory;
 
@@ -131,13 +172,52 @@ public class AmplifyController {
 			 private String hostUploadDirectory;
 
 			 @GetMapping
-			 public String home(Model model) {
-				 List<AudioFile> audioFiles = audioFileRepository.findAll();
+			 public String home(Model model, HttpSession httpSession) {
+				 User loggedInUser = (User) httpSession.getAttribute("user");
+				 if(loggedInUser == null) {
+					 return "redirect:/logout";
+				 }
+				 //List<AudioFile> audioFiles = audioFileRepository.findAll();
+				 List<AudioFile> audioFiles = audioFileRepository.findByUser(loggedInUser);
 				 model.addAttribute("audioFiles", audioFiles);
 				 return "audio";
 			 }
 
 			 @PostMapping("/upload")
+			 public String uploadFile(@RequestParam("file") MultipartFile file, HttpSession httpSession) {
+				 User loggedInUser = (User) httpSession.getAttribute("user");
+				 if(loggedInUser == null) {
+					 return "redirect:/logout";
+				 }
+
+				 try {
+					 String originalFileName = file.getOriginalFilename();
+					 // Generate a unique filename with the current timestamp
+					 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+					 String timestamp = dateFormat.format(new Date());
+					 String uniqueFileName = timestamp + "_" + originalFileName;
+
+					 String directory = "src/main/webapp/uploads/";
+					 File uploadDirectory = new File(directory);
+
+					 // Save the file to the specified directory
+					 File uploadedFile = new File(uploadDirectory.getAbsolutePath() + File.separator + uniqueFileName);
+					 file.transferTo(uploadedFile);
+
+					 AudioFile audioFile = new AudioFile();
+					 audioFile.setName(uniqueFileName);
+					 audioFile.setFilePath("");
+					 audioFile.setUser(loggedInUser);
+					 audioFileRepository.save(audioFile);
+				 } catch (IOException e) {
+					 e.printStackTrace();
+				 }
+
+				 return "redirect:/audio";
+			 }
+
+
+/*			 @PostMapping("/upload")
 			 public String uploadFile(@RequestParam("file") MultipartFile file) {
 				 try {
 					 String originalFileName = file.getOriginalFilename();
@@ -161,7 +241,7 @@ public class AmplifyController {
 					 e.printStackTrace();
 				 }
 				 return "redirect:/audio";
-			 }
+			 }*/
 
 			 @GetMapping("/{fileName:.+}")
 			 public ResponseEntity<Resource> serveAudioFile(@PathVariable String fileName) {
@@ -185,15 +265,34 @@ public class AmplifyController {
 			 public String deleteFile(@PathVariable Long id) throws IOException {
 				 AudioFile audioFile = audioFileRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid file ID"));
 
-				 Path filePath = Paths.get(directory, audioFile.getName());
-
+				/* Path filePath = Paths.get(directory, audioFile.getName());
 				 if (Files.deleteIfExists(filePath)) {
 					 System.out.println("File deleted successfully!");
 				 } else {
 					 System.out.println("File not found or could not be deleted.");
+				 }*/
+
+				 String directory = "src/main/webapp/uploads/";
+				 String fileNameToDelete = audioFile.getName();
+
+				 // Construct the full path to the file
+				 String filePath = directory + fileNameToDelete;
+
+				 // Get a reference to the file
+				 File fileToDelete = new File(filePath);
+
+				 // Verify if the file exists and is actually a file
+				 if (fileToDelete.exists() && fileToDelete.isFile()) {
+					 // Attempt to delete the file
+					 if (fileToDelete.delete()) {
+						 System.out.println("Deleted file: " + fileNameToDelete);
+					 } else {
+						 System.err.println("Failed to delete file: " + fileNameToDelete);
+					 }
 				 }
 
-				 audioFileRepository.delete(audioFile);
+				 //audioFileRepository.delete(audioFile);
+				 audioFileRepository.deleteById(audioFile.getId());
 				 return "redirect:/audio";
 			 }
 

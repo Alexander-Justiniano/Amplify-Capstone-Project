@@ -11,11 +11,22 @@
 <body>
 
 <div class="container">
-    <h1>Uploaded Audio Files</h1>
-    <form action="/audio/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <button type="submit" class="btn btn-primary">Upload</button>
-    </form>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h1>Uploaded Audio Files</h1>
+            <form action="/audio/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+        </div>
+
+        <div class="col-md-4 text-right">
+               <a href="/logout" class="btn btn-link">Logout</a>
+        </div>
+
+    </div>
+
 
     <hr>
 
@@ -25,10 +36,10 @@
             <c:forEach items="${audioFiles}" var="audioFile">
                 <li>
                     <audio controls>
-                        <source src="/audio/${audioFile.name}" type="audio/mpeg">
+                        <source src="/uploads/${audioFile.name}" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
-                    <a href="/audio/delete/${audioFile.id}" class="btn btn-danger">Delete</a>
+                    <a href="/audio/delete/${audioFile.id}" class="btn btn-danger" style="margin-bottom:50px; margin-left:25px;">Delete</a>
                 </li>
             </c:forEach>
 

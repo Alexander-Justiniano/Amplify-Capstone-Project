@@ -18,6 +18,37 @@
     <script type="text/javascript" src="/js/app.js"></script><!-- change to match your file/naming structure -->
 </head>
 <body>
-   <h1>Hello World</h1>
+    <div class="container mt-5">
+        <div class="row mt-1">
+            <div class="col-md-12 d-flex justify-content-end">
+                <a href="/logout" class="btn btn-link">Logout</a>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6 d-flex align-items-center">
+                <!-- Left Column (Logo) -->
+                <img src="/imgs/logo_with_name.png" alt="Logo">
+            </div>
+            <div class="col-md-6">
+                <!-- Right Column (Button and Description) -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Button -->
+                        <div class="text-center" style="margin-top:250px;">
+                            <a href="/song" class="btn btn-success btn-lg rounded-pill py-3 px-4">Manage Your Songs</a>
+                        </div>
+                        <!-- Description -->
+                        <p class="text-center mt-2">Click here to begin your listening experience!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
 </body>
 </html>

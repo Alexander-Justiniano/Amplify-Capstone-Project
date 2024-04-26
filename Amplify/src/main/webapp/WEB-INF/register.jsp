@@ -44,6 +44,11 @@
 	                        <form:input type="password" path="confirm" placeholder="password456"></form:input>
 	                    </div>
 	                    <div class="error-container"><form:errors path="confirm" cssClass="error"/></div>
+
+                        <div>
+                            <input id="submit-btn" type="submit" value="Create Account">
+                        </div>
+
                 	</form:form>
                 </div>
                 <div id="form-extras">
@@ -52,9 +57,9 @@
                     <a href="#">
                         <img src="/imgs/google_logo.png" alt="google logo">
                     </a>
-                    <div>
+                    <%--<div>
                         <input id="submit-btn" type="submit" value="Create Account">
-                    </div>
+                    </div>--%>
                 </div>
             </div>
         </div>

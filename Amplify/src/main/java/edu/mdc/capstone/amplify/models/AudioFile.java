@@ -1,9 +1,6 @@
 package edu.mdc.capstone.amplify.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class AudioFile {
@@ -14,6 +11,10 @@ public class AudioFile {
     private String name;
 
     private String filePath;
+
+    @ManyToOne
+    @JoinColumn(name = "uploaded_by")
+    private User user;
 
     public Long getId() {
         return id;
@@ -39,11 +40,21 @@ public class AudioFile {
         this.filePath = filePath;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public AudioFile(Long id, String name, String filePath) {
         this.id = id;
         this.name = name;
         this.filePath = filePath;
     }
+
+
 
     public AudioFile() {
     }
