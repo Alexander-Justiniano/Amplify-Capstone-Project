@@ -3,6 +3,8 @@ package edu.mdc.capstone.amplify.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.mdc.capstone.amplify.models.Artists.Genre;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -49,7 +51,8 @@ public class Tracks {
     private Artists artist;
     
     @NotNull(message = "Genre is required")
-    @Enumerated(EnumType.STRING) // Stores enum as string
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Genre genre;
     
     @Lob

@@ -18,7 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+  
     @NotBlank(message="Username is required!")
     @Size(min=3, max=30, message="Username must be between 3 and 30 characters")
     @Pattern(regexp="[a-zA-Z]+", message="No numbers, only letters are allowed")

@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -27,11 +28,17 @@ public class Artists {
     @Size(min = 2, max = 80, message = "Artist name must be between 2 and 80 characters")
     private String name;
     
+    @NotNull(message = "Genre is required")
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
-    private Genre genre; 
+    @Column(nullable = false)
+    private Genre genre;
 
     public Artists() {}
+    
+    public Artists(String name, Genre genre) {
+        this.name = name;
+        this.genre = genre;
+    }
 
 	public Long getId() {
 		return id;
