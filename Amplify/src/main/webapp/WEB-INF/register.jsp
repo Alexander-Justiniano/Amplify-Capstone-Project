@@ -44,17 +44,17 @@
 	                        <form:input type="password" path="confirm" placeholder="password456"></form:input>
 	                    </div>
 	                    <div class="error-container"><form:errors path="confirm" cssClass="error"/></div>
+		                <div id="form-extras">
+		                    <h3>Sign up with:</h3>
+		                <!-- *******************CLICKING ON THE IMAGE NEEDS TO MAKE AN API CALL TO THE GOOGLE AUTHENTICATION SERVICE******************* -->
+		                    <a href="#">
+		                        <img src="/imgs/google_logo.png" alt="google logo">
+		                    </a>
+		                    <div>
+		                        <input id="submit-btn" type="submit" value="Create Account">
+		                    </div>
+		                </div>
                 	</form:form>
-                </div>
-                <div id="form-extras">
-                    <h3>Sign up with:</h3>
-                <!-- *******************CLICKING ON THE IMAGE NEEDS TO MAKE AN API CALL TO THE GOOGLE AUTHENTICATION SERVICE******************* -->
-                    <a href="#">
-                        <img src="/imgs/google_logo.png" alt="google logo">
-                    </a>
-                    <div>
-                        <input id="submit-btn" type="submit" value="Create Account">
-                    </div>
                 </div>
             </div>
         </div>
