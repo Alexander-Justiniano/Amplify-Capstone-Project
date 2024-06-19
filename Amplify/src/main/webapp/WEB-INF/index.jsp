@@ -21,7 +21,7 @@
     <div class="container mt-5">
         <div class="row mt-1">
             <div class="col-md-12 d-flex justify-content-end">
-                <a href="/logout" class="btn btn-link">Logout</a>
+                <a href="/logout" class="btn btn-link" onclick="localStorage.clear()">Logout</a>
             </div>
         </div>
 
@@ -41,14 +41,34 @@
                         <!-- Description -->
                         <p class="text-center mt-2">Click here to begin your listening experience!</p>
                     </div>
+                    <div class="col-md-12">
+                        <!-- Button -->
+                        <div class="text-center" style="margin-top:250px;">
+                            <a href="/music" class="btn btn-success btn-lg rounded-pill py-3 px-4">Songs</a>
+                        </div>
+                        <!-- Description -->
+                        <p class="text-center mt-2">Click here to listen to others uploaded music</p>
+                    </div>
+                    <div class="col-md-12">
+                        <!-- Button -->
+                        <div class="text-center" style="margin-top:250px;">
+                            <a href="/chats" class="btn btn-success btn-lg rounded-pill py-3 px-4">Chats</a>
+                        </div>
+                        <!-- Description -->
+                        <p class="text-center mt-2">Click here to begin chatting with your friends</p>
+                    </div>
                 </div>
             </div>
         </div>
-
-
     </div>
-
-
-
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        // Check if the username is not null or empty
+        if (userId) {
+            // Save the username to localStorage
+            localStorage.setItem('userId', userId);
+        }
+    </script>
 </body>
 </html>

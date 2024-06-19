@@ -47,14 +47,6 @@ public class User {
 		this.id = id;
 	}
 
-/*	public String getuserName() {
-		return userName;
-	}*/
-
-	/*public void setuserName(String userName) {
-		this.userName = userName;
-	}*/
-
 	public String getUserName() {
 		return userName;
 	}

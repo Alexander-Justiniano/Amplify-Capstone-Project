@@ -76,6 +76,17 @@ public class AmplifyController {
 			return "index"; //Need to address naming conventions for readability
 		}
 
+		//messsage mapping
+		@GetMapping("/chats")
+		public String chats(){return "chats";}
+
+		@GetMapping("/chat")
+		public String chat(){return "chat";}
+
+		//Songs mapping
+		@GetMapping("/music")
+		public String songs(){return "music";}
+
 
 
 
@@ -109,53 +120,21 @@ public class AmplifyController {
 		}
 
 
-		/* @PostMapping("/login")
-		    public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin,
-		            BindingResult result, Model model, HttpSession session) {
-
-//				Make call to the user service to sign in the new user
-
-		    	User loggedIn = userServ.login(newLogin, result);
-
-		        if(result.hasErrors()) {
-		            model.addAttribute("newUser", new User());
-		            return "login.jsp";
-		        }
-
-//		        Add the ID and the userName of the logged in user to session for later use
-		        session.setAttribute("user_id", loggedIn.getId());
-		        //session.setAttribute("userName", loggedIn.getuserName());
-		        session.setAttribute("userName", loggedIn.getUserName());
-
-		        return "redirect:/dashboard";
-		    }*/
+	@PostMapping("/login")
+	public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin,
+						BindingResult result, Model model, HttpSession session) {
+		User loggedIn = userServ.login(newLogin, result);
+		if (result.hasErrors()) {
+			model.addAttribute("newUser", new User());
+			return "loginTwo";
+		}
+		session.setAttribute("user", loggedIn);
+		String userId = String.valueOf(loggedIn.getId());
+		return "redirect:/dashboard?userId=" + userId;
+	}
 
 
-			@PostMapping("/login")
-			public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin,
-								BindingResult result, Model model, HttpSession session) {
-
-				// Make call to the user service to sign in the new user
-
-				User loggedIn = userServ.login(newLogin, result);
-
-				if(result.hasErrors()) {
-					model.addAttribute("newUser", new User());
-					return "loginTwo";
-				}
-
-				session.setAttribute("user", loggedIn);
-
-				//Add the ID and the userName of the logged in user to session for later use
-				//session.setAttribute("user_id", loggedIn.getId());
-				//session.setAttribute("userName", loggedIn.getuserName());
-				//session.setAttribute("userName", loggedIn.getUserName());
-
-				return "redirect:/dashboard";
-				//return "redirect:/audio";
-			}
-
-		 @Controller
+	@Controller
 		 @RequestMapping("/audio")
 		 public class TracksController {
 

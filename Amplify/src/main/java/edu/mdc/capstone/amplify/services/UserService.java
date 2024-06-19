@@ -1,5 +1,6 @@
 package edu.mdc.capstone.amplify.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -78,4 +79,8 @@ public class UserService {
     		return null;
     	}
     }
+
+	public List<User> getAllUsers() {
+		return userRepo.findAll();
+	}
 }
