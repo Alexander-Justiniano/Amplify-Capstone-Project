@@ -28,22 +28,18 @@
 	                        <form:label path="email">Email:</form:label>
 	                        <form:input type="email" path="email" placeholder="youraddress@email.com"></form:input>
 	                    </div>
-	                    <div class="error-container"><form:errors path="email" cssClass="error"/></div>
 	                    <div class="form-element">
-	                        <form:label path="userName">Username:</form:label>
+	                        <form:label path="username">Username:</form:label>
 	                        <form:input type="text" path="userName" placeholder="userName123"></form:input>
 	                    </div>
-	                    <div class="error-container"><form:errors path="userName" cssClass="error"/></div>
 	                    <div class="form-element">
 	                        <form:label path="password">Password:</form:label>
 	                        <form:input type="password" path="password" placeholder="password456"></form:input>
 	                    </div>
-	                    <div class="error-container"><form:errors path="password" cssClass="error"/></div>
 	                    <div class="form-element">
 	                        <form:label path="confirm">Confirm Password:</form:label>
 	                        <form:input type="password" path="confirm" placeholder="password456"></form:input>
 	                    </div>
-	                    <div class="error-container"><form:errors path="confirm" cssClass="error"/></div>
                 	</form:form>
                 </div>
                 <div id="form-extras">

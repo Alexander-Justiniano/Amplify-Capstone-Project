@@ -55,7 +55,7 @@
                         <a href="#">Forgot Password?</a>
                     </div>
                     <!-- *******************NEEDS TO REDIRECT USER TO THE "REGISTRATION" PAGE******************* -->
-                    <p>Don't have an account already? <a href="/register">Sign up now!</a></p>
+                    <p>Don't have an account already? <a href="#">Sign up now!</a></p>
                 </div>
             </div>
     </div>
