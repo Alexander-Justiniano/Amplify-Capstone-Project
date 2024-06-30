@@ -1,0 +1,46 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-family: monospace;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    margin: 0 auto; /* Center horizontally */
+}
+
+.item {
+    position: absolute;
+    width: 400px; /* Adjust width for larger circles */
+    height: 400px; /* Adjust height for larger circles */
+    text-align: justify;
+    background-color: grey;
+    border-radius: 50%; /* Make it a circle */
+    padding: 20px;
+    transition: 0.5s;
+    left: calc(50% - 210px); /* Adjust left position */
+    top: 0; /* Adjust top position */
+}
+
+#next, #prev {
+    position: absolute;
+    top: 40%;
+    color: black;
+    background-color: transparent;
+    border: none;
+    font-size: xxx-large;
+    font-family: monospace;
+    font-weight: bold;
+    left: 400px;
+}
+
+#next {
+    left: unset;
+    right: 400px;
+}
