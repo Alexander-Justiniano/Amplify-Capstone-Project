@@ -95,22 +95,6 @@
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
         </dependency>
-        
-        
-        <!-- Spring Boot Starter Thymeleaf -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        
-        
-        <!--  Spring Boot Starter Lombok -->
-        <dependency>
-   			<groupId>org.projectlombok</groupId>
-    		<artifactId>lombok</artifactId>
-    		<version>1.18.26</version> <!-- Use the latest version available -->
-   			<scope>provided</scope>
-		</dependency>
     
 	</dependencies>
 

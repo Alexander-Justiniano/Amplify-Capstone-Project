@@ -30,22 +30,18 @@
                 </div>
                 <!-- *******************ADD INPUT VALIDATION FOR USERNAME AND PASSWORD******************* -->
                 <div id="form">
-                	<form:form mothod="post" action="/login" modelAttribute="newLogin">
-	                    <div class="form-element">
-	                        <form:label path="email">Email:</form:label>
-	                        <form:input type="email" path="email" placeholder="youraddress@email.com"></form:input>
-	                    </div>
-	                    <div class="error-container"><form:errors path="email" cssClass="error"/></div>
-	                    <div class="form-element">
-	                        <form:label path="password">Password:</form:label>
-	                        <form:input type="password" path="password" placeholder="password456"></form:input>
-	                    </div>
-	                    <div class="error-container"><form:errors path="password" cssClass="error"/></div>
-	                    <!-- *******************FORM NEEDS TO SUBMIT DATA FOR LOGIN VERIFICATION AND REDIRECT TO DASHBOARD******************* -->
-	                    <div id="submit">
-		                    <input id="submit-btn" type="submit" value="Login">
-		                </div>
-                    </form:form>
+                    <div class="form-element">
+                        <label for="username">Username:</label>
+                        <input type="text" placeholder="userName123">
+                    </div>
+                    <div class="form-element">
+                        <label for="password">Password:</label>
+                        <input type="password" placeholder="password456">
+                    </div>
+                    <!-- *******************FORM NEEDS TO SUBMIT DATA FOR LOGIN VERIFICATION AND REDIRECT TO DASHBOARD******************* -->
+                    <div id="submit">
+                        <button id="submit-btn"><span>Log In</span></button>
+                    </div>
                 </div>
                 <div id="third-party-login">
                     <!-- *******************CLICKING ON THE IMAGE NEEDS TO MAKE AN API CALL TO THE GOOGLE AUTHENTICATION SERVICE******************* -->

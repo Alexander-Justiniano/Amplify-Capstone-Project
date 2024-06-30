@@ -22,32 +22,31 @@ label{
 
 #col-1{
     width: 400px;
-    height: auto;
+    height: 600px;
     background-color: #d9d9d9;
     margin: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 30px 30px 60px 30px;
+    padding: 0px 30px 60px 30px;
     border-radius: 10px;
 
 }
 
 #logo img{
     width: 300px;
-    margin-top: -10px;
 }
 
 #form{
     width: 400px;
-    height: auto;
+    height: 400px;
     background-color: #a5a4a0;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    margin-top: -20px;
+    margin-top: -50px;
 
 }
 
@@ -61,7 +60,7 @@ label{
 .form-element{
     display: flex;
     justify-content: space-between;
-    margin: 10px;
+    margin: 6px;
 }
 
 #form-extras{
@@ -69,6 +68,7 @@ label{
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    margin-top: -60px;
     padding: 10px;
 }
 
@@ -102,10 +102,4 @@ label{
     background-color: #d96930;
     box-shadow: 0 3px #2f2f2f;
     transform: translateY(8px);
-}
-
-.error-container{
-	color: #cc0000;
-	font-size: 1.3rem;
-	text-align: center;
 }
